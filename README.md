@@ -269,4 +269,137 @@ Any type of data store is equally good, regardless of your data access patterns.
 
 False
 
+# Data Store Types Overview
+
+## What is it?
+
+Data store types
+
+## What does it do?
+
+Used for applications based on best fit
+
+## How do you use it?
+
+Determine your application needs and apply the appropriate data store
+
+LESSON:
+
+Data comes in many forms, and it can be represented in different types of data stores in many ways.
+In general, any kind of data can be stored in any kind of data store, but some are usually a better fit than others.
+We will discuss this later in the module, but for now, let's go over some of the main types of data stores in common use.
+We distinguish between two general types of data stores: file-based data stores and databases.
+File-based data stores are regular files that contain data records that can be accessed by people or applications directly.
+And the other kind is databases, which are data stores managed by special software that mediates all access to the data store.
+Most of the module will focus on databases, but first let's discuss file-based data stores, which are still relevant at times and understanding them will help us make sense of the need for a database.
+
+# File Based Data Stores
+ 
+What is it?
+
+A data storage type
+
+
+What does it do?
+
+Stores data in simple files.
+
+
+How do you use it?
+
+Use it when working with simple data such as data exported from Excel sheets or other comma separated value (CSV) formatted data
+
+Walkthrough
+ 
+0:00 / 2:19Press UP to enter the speed menu then use the UP and DOWN arrow keys to navigate the different speeds, then press ENTER to change to the selected speed.1.0xClick on this button to mute or unmute this video or press UP or DOWN buttons to increase or decrease volume level.Maximum Volume.Video transcript
+Start of transcript. Skip to the end.
+File-based data stores are the most basic kinds of computerized data stores.
+These data stores are very simple to set up and maintain, and by virtue of being regular text files, they can be inspected and edited by any text editor, such as Notepad.
+All of the data is stored in a single text file such that every time the data needs to be accessed, the entire file needs to be read.
+And every time data needs to be modified, the entire file needs to be saved back to disk.
+One common type of file-based data store is called flat-files.
+And the best-known type of a flat-file format that is still in common use is CSV, standing for Comma Separated Values.
+In this format, records are put into a .txt file each on a separate line, and each field in a record is separated with commas.
+For example, for our online store, to help organize our marketing efforts, we might choose to store some information about cities in the world.
+If we want to describe a list of cities, the country they are in, and the populations in a CSV file, you could use this structure: name,country,population.
+New line: Dublin,Ireland,530,000
+New line: London,UK,800,000.
+A title row like that above is optional and is handled separately from the rest of the rows which store regular records.
+The title row is essentially Metadata within the flat-file.
+A central property of file-based data stores is that they can only record records for a single kind of entity, in this case, cities.
+Also, there is absolutely no structure or hierarchy connecting different records, and in this sense, the data is said to be flat.
+So as we can see, a flat-file can only store a single kind of record.
+If we want to store several different kinds of records, we need to use several separate flat-files.
+A related alternative I should mention are spreadsheets.
+Spreadsheet programs, such as Microsoft Excel, can be used to edit CSV files.
+And indeed, a spreadsheet file can be considered a collection of several such flat-files with many additional capabilities.
+But note that unless you explicitly save an Excel file as a CSV, it is not a text file, and then on can only be opened with a spreadsheet program.
+
+# JSON And XML
+ 
+## What is it?
+
+JSON and XML data structure formats
+
+## What does it do?
+
+Formats data in markup or key/value pairs
+
+## How do you use it?
+
+Use XML or JSON structure in particular when data originates in nested formats
+
+LESSON:
+The main downside of flat-files is that they do not allow us to express any relationships between different data types.
+For example, let's say I have a hierarchy of locations, cities within countries, and I want to store records concerning both.
+One natural way of expressing this would be by having the city records nested within the record of the country they belong to.
+Similar to flat-files, structured formats such as XML (Extensible Markup Language) and JSON (JavaScript Object Notation) emerged as a way of storing data and text files.
+Unlike flat-files, these formats allow for hierarchical structuring of data records.
+Instead of describing records for each entity in a separate file, these structured formats let you nest records one within the other.
+For example, if we want to describe countries and the cities within them, we could use this JSON structure, which has a list of country records each with the field's name, population, and cities.
+The interesting thing is that the cities field is in itself a nested collection of city records, each of which has the field's name and population.
+Let's look at the JSON format itself for a bit.
+It consists of records surrounded by curly braces, each consisting of field keys and field values delimited by colons.
+A value can be either a simple number or a string, or an inner record, or a list of values surrounded by square brackets.
+Another interesting property of formats such as JSON is that unlike the fixed structure of flat-files, in JSON, different records can have different fields.
+For instance, let's say that we want to have the record about the city of Oxford contain a field about the city's motto, "Fortas est Veritas" (Truth is Strong).
+In JSON, we can easily add that field, even if we do not have a motto to store for other cities' records.
+But note that this lack of structure, when you do not know what fields any record has, can make handling of the data much harder.
+So often developers will want to enforce a fixed structure anyway.
+JSON originated from the way objects can be defined in the JavaScript language.
+But due to its convenience and simplicity, it has since become widespread as a way to store and transfer data between applications written in all modern languages.
+The same information can also be stored in XML in this way.
+This may seem familiar to you if you are used to HTML since they were both developed based on an older standard called SGML and share most of their properties.
+We will not go into XML structure here in this module because it is more complex than JSON and because it is becoming less common, at least in the Web world.
+In essence, XML stores data in the same way as JSON with slight differences.
+JSON is newer than XML, and due to the simplicity and easy integration with JavaScript, it has become the most widely used structured data format.
+It is the main format used by the document-oriented database MongoDB, which we will discuss later.
+File-based data stores have these advantages:
+They are very simple to set up and to maintain.
+They are widely supported in all programming languages and all kinds of systems.
+It is very easy to copy between computers and back these formats up.
+It is easy to examine and modify these files by any text editor.
+But note that they do have some very big downsides that make them less useful for large-scale production needs.
+Only a single change to the data store can be made at any point in time, unlike with databases where different changes can be performed concurrently (at the same time).
+Access to specific records is very slow.
+To find the record, you have to go through the entire file line-by-line until you find it.
+In other words, files do not have indexes.
+We will talk about indexes later in this module.
+And finally, regular files have no protections against corruption.
+Unlike with databases, that we will discuss later, there is nothing that can protect us from accidentally putting erroneous or badly structured data in regular files.
+For these reasons, file-based data stores are rarely used as persistent long-lived data stores these days.
+But due to their simplicity and wide support, they are often used for importing and exporting data between systems, even when you are using a database.
+The API module in this course focuses on interfaces between applications and how they rely on formats such as JSON to transfer information between systems.
+
+# Data Store Types Quiz
+
+## A data store: (Select all that apply)
+is most useful for short-term storage of data can be searched, contains records, might be something as low-tech as a cardboard box
+
+## CRUD operations can be performed on which types of data storage? (Select all that apply)
+File based, Database.
+
+## Below are a few sentences concerning file-based data stores vs. databases (Select all that that are true)
+File-based data stores are easier to set up and maintain than database. 
+File-based data stores can be used for importing data to, and exporting data from a database.
    
